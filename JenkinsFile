@@ -3,9 +3,16 @@ pipeline {
 
  stages{
 
-  stage('Test'){
+  stage('Install Dependencies'){
     steps{
-    sh "/psnl_projects/jenkins_test/yarn test"
+    sh "yarn install"
+    echo "Yarn installed"
+    }
+  }
+  stage('Run Tests'){
+    steps{
+    sh "yarn test"
+    echo "Test results"
     }
   }
  }
