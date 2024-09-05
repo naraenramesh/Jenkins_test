@@ -1,0 +1,19 @@
+pipeline {
+ agent any
+
+ stages{
+
+  stage('Install Dependencies'){
+  //   steps{
+  //   sh "/root/.nvm/versions/node/v20.11.0/bin/yarn install"
+  //           echo "Yarn installed"
+  // }
+  }
+  stage('Run Tests'){
+    steps{
+    sh "/root/.nvm/versions/node/v20.11.0/bin/yarn test"
+    echo "Test results"
+    }
+  }
+ }
+}
