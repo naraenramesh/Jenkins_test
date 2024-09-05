@@ -5,8 +5,9 @@ pipeline {
 
   stage('Install Dependencies'){
     steps{
-    sh "yarn"
-    echo "Yarn installed"
+       sh "npm install -g yarn"
+        sh "yarn install"
+            echo "Yarn installed"
     }
   }
   stage('Run Tests'){
