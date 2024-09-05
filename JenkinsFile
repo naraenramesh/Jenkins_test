@@ -6,7 +6,7 @@ pipeline {
   stage('Install Dependencies'){
     steps{
     dir("./psnl_projects/jenkins_test") {
-  sh "yarn install"
+  sh "which yarn"
             echo "Yarn installed"
 
     }
