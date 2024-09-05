@@ -5,7 +5,7 @@ pipeline {
 
   stage('Install Dependencies'){
     steps{
-    sh "npm install -g yarn"
+    sh "npm install --global yarn --unsafe-perm=true --allow-root"
     sh "yarn install"
             echo "Yarn installed"
   }
