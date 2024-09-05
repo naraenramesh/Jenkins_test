@@ -5,6 +5,10 @@ pipeline {
 
   stage('Install Dependencies'){
     steps{
+      // Install Yarn locally if not installed globally
+            sh 'curl -o- -L https://yarnpkg.com/install.sh | bash'
+            // Ensure the Yarn binary is available
+            sh 'export PATH="$PATH:$HOME/.yarn/bin"'
   sh "yarn install"
             echo "Yarn installed"
   }
