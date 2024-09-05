@@ -5,7 +5,7 @@ pipeline {
 
   stage('Test'){
     steps{
-    sh "yarn test"
+    sh "/psnl_projects/jenkins_test/yarn test"
     }
   }
  }
