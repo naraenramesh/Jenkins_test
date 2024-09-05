@@ -3,9 +3,9 @@ pipeline {
 
  stages{
 
-  stage('echo'){
+  stage('Test'){
     steps{
-    echo "Hi"
+    sh "yarn test"
     }
   }
  }

@@ -64,6 +64,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "jestConfig": "jest.config.js",
+            "setupFile": "setup-jest.ts",
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/assets", "src/favicon.ico"],
