@@ -5,9 +5,10 @@ pipeline {
 
   stage('Install Dependencies'){
     steps{
-       sh "npm install -g yarn"
-        sh "yarn install"
+    dir("./psnl_projects/jenkins_test") {
+  sh "yarn install"
             echo "Yarn installed"
+
     }
   }
   stage('Run Tests'){
