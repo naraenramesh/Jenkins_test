@@ -31,7 +31,7 @@ environment{
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
-nvm_version=$(node --version)
+nvm_version=$(nvm --version)
 
           if [ -z "${nvm_version}" ];
                     then
