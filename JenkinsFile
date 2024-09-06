@@ -20,26 +20,23 @@ environment{
                     then
                         echo "Yarn not found.$(yarn --version). Installing Yarn..."
                         curl -o- -L https://yarnpkg.com/install.sh | bash
-
-                    # Verify Yarn version
-                    yarn --version
-                                    echo "Yarn installed"
                     else
                         echo "Yarn is already installed"
                     fi
 
+                    # Verify Yarn version
+                    yarn --version
 
+            echo "Yarn installed"
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
-
+     export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 
 if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
 then
-
-     #export NVM_DIR="$HOME/.nvm"
-      #              [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 nvm_version=$(nvm --version)
 
@@ -47,14 +44,20 @@ nvm_version=$(nvm --version)
                     then
                                             echo "nvm not found. Installing nvm..."
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+                             export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
 
+                    if ! nvm ls 20.11.0 >/dev/null 2>&1; then
+
+                                nvm install ${EXPECTED_NODE_VERSION}
+                                echo "Node of version $(node --version) installed"
+                                else
 
             nvm use ${EXPECTED_NODE_VERSION}
-            echo "Node switched to version $(node --version)
+            echo "Node switched $(node --version) installed"
 
-
+            fi
             fi
 
             yarn
