@@ -31,30 +31,34 @@ environment{
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
+
+
+
+if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
+then
+
      export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 nvm_version=$(nvm --version)
 
           if [ -z "${nvm_version}" ];
                     then
                                             echo "nvm not found. Installing nvm..."
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-                             export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
 
-                    nvm list
+                    if ! nvm ls 20.11.0 >/dev/null 2>&1; then
 
-                                nvm use ${EXPECTED_NODE_VERSION}
-
-
-if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
-then
-
-nvm --version
                                 nvm install ${EXPECTED_NODE_VERSION}
+                                echo "Node of version ${EXPECTED_NODE_VERSION} installed"
+                                else
+
             nvm use ${EXPECTED_NODE_VERSION}
-echo "Node of version $(node --version) installed"
+            echo "Node switched to version $(node --version)
+
+            fi
             fi
 
             yarn
