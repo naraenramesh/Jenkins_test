@@ -1,142 +1,62 @@
-pipeline {
- agent any
-
-environment{
-
-             PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm:$PATH"
-             EXPECTED_NODE_VERSION="20.11.0"
-}
-parameters{
-
-       booleanParam(
-                 name: 'build',
-         defaultValue: false,
-         description: 'Can we proceed with jenkins job'
-       )
-       booleanParam(
-        name: 'runTests',
-         defaultValue: false,
-         description: 'Are you sure'
-
-       )
-}
-
- stages{
-
-  stage('Install Dependencies'){
-
-    steps{
-      script{
-installDep()
- }
-  }
-  }
-  stage('Run Tests'){
-         when {
-                expression { params.runTests == true }
-            }
-    steps{
-    sh "yarn test"
-    echo "Test results"
-    }
-  }
-
-    stage('Build'){
-           when {
-                expression { params.build == true }
-            }
-    steps{
-    sh "yarn package"
-    echo "File created successfully"
-    }
-  }
-
+node {
+    // Job properties: Define parameters, build discarding, triggers, etc.
     properties([
+        // Define build parameters
         parameters([
             string(defaultValue: 'main', description: 'Branch to build', name: 'BRANCH'),
-            booleanParam(defaultValue: false, description: 'Enable debugging', name: 'DEBUG')
-        ])
+            booleanParam(defaultValue: false, description: 'Enable debugging', name: 'DEBUG_MODE'),
+            choice(choices: ['dev', 'staging', 'prod'], description: 'Select the deployment environment', name: 'ENVIRONMENT')
+        ]),
+
+        // Discard old builds, keeping only the last 10 builds
+        buildDiscarder(logRotator(numToKeepStr: '10')),
+
+        // Set build triggers: Poll the SCM for changes every 5 minutes
+        pipelineTriggers([pollSCM('H/5 * * * *')])
     ])
 
-    stage('Build1') {
-        echo "Building branch: ${params.BRANCH}"
-        echo "Debug mode: ${params.DEBUG}"
+    // Define stages for the pipeline
+    stage('Preparation') {
+        steps {
+            echo "Preparing to build branch: ${params.BRANCH}"
+            echo "Environment selected: ${params.ENVIRONMENT}"
+        }
     }
 
+    stage('Checkout') {
+        steps {
+            // Simulate git checkout
+            echo "Checking out branch: ${params.BRANCH}"
+            // In a real pipeline, you would use:
+            // checkout scm
+        }
+    }
 
-}
- }
+    stage('Build') {
+        steps {
+            script {
+                if (params.DEBUG_MODE) {
+                    echo "Debug mode is ON"
+                } else {
+                    echo "Debug mode is OFF"
+                }
+            }
 
+            // Simulate a build step
+            echo "Building the project for environment: ${params.ENVIRONMENT}"
+        }
+    }
 
-def setProperties(){
-     properties([
-     parameters([
-       booleanParam(
-                 name: 'build',
-         defaultValue: false,
-         description: 'Can we proceed with jenkins job'
-       ),
-       booleanParam(
-        name: 'runTests',
-         defaultValue: false,
-         description: 'Are you sure'
+    stage('Test') {
+        steps {
+            // Simulate a test step
+            echo "Running tests on branch: ${params.BRANCH}"
+        }
+    }
 
-       ),
-     ])
-   ])
-}
-
-def installDep(){
-
-  sh '''
-         yarn_version=$(yarn --version)
-          if [ -z "${yarn_version}" ];
-
-                    then
-                        echo "Yarn not found.$(yarn --version). Installing Yarn..."
-                        curl -o- -L https://yarnpkg.com/install.sh | bash
-
-                    # Verify Yarn version
-                    yarn --version
-
-            echo "Yarn installed"
-                    else
-                        echo "Yarn is already installed"
-                    fi
-
-node_version=$(node --version)
-
-# Check if the current Node.js version matches the expected version
-     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-
-if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
-then
-
-nvm_version=$(nvm --version)
-
-          if [ -z "${nvm_version}" ];
-                    then
-                                            echo "nvm not found. Installing nvm..."
-                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-                             export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    fi
-
-                    if ! nvm ls 20.11.0 >/dev/null 2>&1; then
-
-                                nvm install ${EXPECTED_NODE_VERSION}
-                                echo "Node of version $(node --version) installed"
-                                else
-
-            nvm use ${EXPECTED_NODE_VERSION}
-            echo "Node switched to version $(node --version)"
-
-            fi
-            fi
-
-            yarn
-            echo "Node modules created"
-                          '''
+    stage('Deploy') {
+        steps {
+            echo "Deploying to environment: ${params.ENVIRONMENT}"
+        }
+    }
 }
