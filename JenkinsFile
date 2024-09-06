@@ -14,7 +14,9 @@ environment{
 
 
          sh '''
-          if ! yarn --version &> /dev/null
+         yarn_version=$(yarn --version)
+
+          if [ !"$yarn_version" ]
                     then
                         echo "Yarn not found.$(yarn --version). Installing Yarn..."
                         curl -o- -L https://yarnpkg.com/install.sh | bash
