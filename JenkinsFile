@@ -8,8 +8,7 @@ environment{
 }
 options{
 parameters{
- properties([
-     parameters([
+
        booleanParam(
                  name: 'build',
          defaultValue: false,
@@ -20,9 +19,7 @@ parameters{
          defaultValue: false,
          description: 'Are you sure'
 
-       ),
-     ])
-   ])
+       )
 }
 
 
