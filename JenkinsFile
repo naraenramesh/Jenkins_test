@@ -12,7 +12,7 @@ parameters{
                  name: 'build',
          defaultValue: false,
          description: 'Can we proceed with jenkins job'
-       ),
+       )
        booleanParam(
         name: 'runTests',
          defaultValue: false,
