@@ -23,7 +23,7 @@ environment{
                     yarn --version
 
             echo "Yarn installed"
-var node_version = `node --version`
+ node_version = `node --version`
 
             if [ $node_version != `v$EXPECTED_NODE_VERSION` ]
             then
