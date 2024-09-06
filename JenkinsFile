@@ -50,7 +50,7 @@ nvm_version=$(nvm --version)
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
 
-                    if ! nvm ls 20.11.0 >/dev/null 2>&1;
+                    if ! $(nvm ls 20.11.0) >/dev/null 2>&1;
                     then
 
                                 nvm install ${EXPECTED_NODE_VERSION}
