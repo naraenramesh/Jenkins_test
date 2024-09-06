@@ -26,11 +26,11 @@ environment{
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
-if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ];
+if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
 then
             nvm install ${EXPECTED_NODE_VERSION}
             nvm use ${EXPECTED_NODE_VERSION}
-echo "Node of version `node --version` installed`
+echo "Node of version $(node --version) installed`
             fi
 
             sh 'yarn'
