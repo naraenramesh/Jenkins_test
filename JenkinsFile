@@ -7,12 +7,24 @@ environment{
              EXPECTED_NODE_VERSION="20.11.0"
 }
 
-setProperties()
+   properties([
+     parameters([
+       booleanParam(
+                 name: 'jobconf',
+         defaultValue: false,
+         description: 'Can we proceed with jenkins job'
+       ),
+       booleanParam(
+        name: 'jobDblConf',
+         defaultValue: false,
+         description: 'Are you sure'
+
+       ),
+     ])
+   ])
 
 if(params.jobconf && params.jobDblConf){
  stages{
-
-
 
   stage('Install Dependencies'){
     steps{
@@ -37,18 +49,20 @@ installDep()
 }
  }
 }
+
 def setProperties(){
      properties([
      parameters([
        booleanParam(
+                 name: 'jobconf',
          defaultValue: false,
-         description: 'Can we proceed with jenkins job',
-         name: 'jobconf'
+         description: 'Can we proceed with jenkins job'
        ),
        booleanParam(
+        name: 'jobDblConf',
          defaultValue: false,
-         description: 'Are you sure',
-         name: 'jobDblConf'
+         description: 'Are you sure'
+
        ),
      ])
    ])
