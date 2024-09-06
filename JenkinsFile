@@ -23,12 +23,12 @@ environment{
                     yarn --version
 
             echo "Yarn installed"
- node_version = `node --version`
+ node_version = "$(node --version)"
 
-            if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
+            if [ ${node_version} != "v${EXPECTED_NODE_VERSION}" ]
             then
-            nvm install $EXPECTED_NODE_VERSION
-            nvm use $EXPECTED_NODE_VERSION
+            nvm install ${EXPECTED_NODE_VERSION}
+            nvm use ${EXPECTED_NODE_VERSION}
 echo "Node of version `node --version` installed`
             fi
 
