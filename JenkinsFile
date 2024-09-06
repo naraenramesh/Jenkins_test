@@ -49,8 +49,9 @@ nvm_version=$(nvm --version)
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
+exp_version=$(nvm ls 20.11.0)
 
-                    if  [ -z "$(nvm ls 20.11.0)" ] >/dev/null 2>&1;
+                    if  [ -z "${exp_version}" ] >/dev/null 2>&1;
                     then
 
                                 nvm install ${EXPECTED_NODE_VERSION}
