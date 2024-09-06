@@ -31,8 +31,9 @@ environment{
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
+nvm_version=$(node --version)
 
-          if [ -z "$(nvm --version)" ];
+          if [ -z "${nvm_version}" ];
                     then
                                             echo "nvm not found. Installing nvm..."
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
