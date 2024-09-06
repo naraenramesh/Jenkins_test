@@ -6,7 +6,6 @@ environment{
              PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm:$PATH"
              EXPECTED_NODE_VERSION="20.11.0"
 }
-options{
 parameters{
 
        booleanParam(
@@ -22,8 +21,6 @@ parameters{
        )
 }
 
-
-}
  stages{
 
   stage('Install Dependencies'){
