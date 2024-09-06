@@ -51,7 +51,6 @@ installDep()
     }
   }
 
-  node {
     properties([
         parameters([
             string(defaultValue: 'main', description: 'Branch to build', name: 'BRANCH'),
@@ -59,11 +58,11 @@ installDep()
         ])
     ])
 
-    stage('Build') {
+    stage('Build1') {
         echo "Building branch: ${params.BRANCH}"
         echo "Debug mode: ${params.DEBUG}"
     }
-}
+
 
 }
  }
