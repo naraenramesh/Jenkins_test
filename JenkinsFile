@@ -8,6 +8,11 @@ environment{
 }
  stages{
 
+setProperties()
+
+if(params.jobconf && params.jobDblConf){
+
+
   stage('Install Dependencies'){
     steps{
       script{
@@ -28,9 +33,25 @@ installDep()
     echo "File created successfully"
     }
   }
+}
  }
 }
-
+def setProperties(){
+     properties([
+     parameters([
+       booleanParam(
+         defaultValue: false,
+         description: 'Can we proceed with jenkins job',
+         name: 'jobconf'
+       ),
+       booleanParam(
+         defaultValue: false,
+         description: 'Are you sure',
+         name: 'jobDblConf'
+       ),
+     ])
+   ])
+}
 
 def installDep(){
 
