@@ -33,7 +33,7 @@ then
 echo "Node of version $(node --version) installed"
             fi
 
-            sh 'yarn'
+            yarn
             echo "Node modules created"
               '''
   }
