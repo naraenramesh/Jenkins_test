@@ -12,8 +12,7 @@ pipeline {
       steps {
         script {
 
-          sh ''
-          '
+          sh '''
           yarn_version = $(yarn --version)
           if [-z "${yarn_version}"];
 
@@ -68,8 +67,7 @@ pipeline {
 
           yarn
           echo "Node modules created"
-          ''
-          '
+          '''
         }
       }
     }
