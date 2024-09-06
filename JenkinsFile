@@ -3,7 +3,7 @@ pipeline {
 
 environment{
 
-             PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+             PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm:$PATH"
              EXPECTED_NODE_VERSION="20.11.0"
 }
  stages{
@@ -39,6 +39,8 @@ node_version=$(node --version)
                              export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
+
+                    nvm list
 
                                 nvm use ${EXPECTED_NODE_VERSION}
 
