@@ -51,17 +51,10 @@ nvm_version=$(nvm --version)
                     fi
 
 
-
-if ! nvm ls | grep -q 'v20.11.0'; then
-
-                                nvm install ${EXPECTED_NODE_VERSION}
-                                echo "Node of version ${EXPECTED_NODE_VERSION} installed"
-                                else
-
             nvm use ${EXPECTED_NODE_VERSION}
             echo "Node switched to version $(node --version)
 
-            fi
+
             fi
 
             yarn
