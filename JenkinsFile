@@ -21,6 +21,13 @@ installDep()
     echo "Test results"
     }
   }
+
+    stage('Build'){
+    steps{
+    sh "yarn package"
+    echo "File created successfully"
+    }
+  }
  }
 }
 
