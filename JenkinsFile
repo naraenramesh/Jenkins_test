@@ -15,7 +15,7 @@ environment{
 
          sh '''
          yarn_version=$(yarn --version)
-          if [[ -z "${yarn_version}" ]];
+          if [ -z "${yarn_version}" ];
 
                     then
                         echo "Yarn not found.$(yarn --version). Installing Yarn..."
@@ -33,7 +33,7 @@ node_version=$(node --version)
 # Check if the current Node.js version matches the expected version
 if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
 then
-          if [[ -z "$(nvm --version)" ]];
+          if [ -z "$(nvm --version)" ];
                     then
                                             echo "nvm not found. Installing nvm..."
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
