@@ -31,8 +31,7 @@ environment{
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
-if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
-then
+
           if [ -z "$(nvm --version)" ];
                     then
                                             echo "nvm not found. Installing nvm..."
@@ -41,6 +40,11 @@ then
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     fi
 
+                                nvm use ${EXPECTED_NODE_VERSION}
+
+
+if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
+then
 
 nvm --version
                                 nvm install ${EXPECTED_NODE_VERSION}
