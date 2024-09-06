@@ -30,7 +30,7 @@ if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
 then
             nvm install ${EXPECTED_NODE_VERSION}
             nvm use ${EXPECTED_NODE_VERSION}
-echo "Node of version $(node --version) installed`
+echo "Node of version $(node --version) installed"
             fi
 
             sh 'yarn'
