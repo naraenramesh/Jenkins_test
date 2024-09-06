@@ -32,10 +32,10 @@ then
                     then
                                             echo "nvm not found. Installing nvm..."
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                     fi
-
+              '''
+         sh '''
+nvm --version
                                 nvm install ${EXPECTED_NODE_VERSION}
             nvm use ${EXPECTED_NODE_VERSION}
 echo "Node of version $(node --version) installed"
@@ -43,7 +43,8 @@ echo "Node of version $(node --version) installed"
 
             yarn
             echo "Node modules created"
-              '''
+                          '''
+
   }
   }
   stage('Run Tests'){
