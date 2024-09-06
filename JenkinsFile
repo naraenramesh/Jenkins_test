@@ -10,6 +10,9 @@ environment{
 
   stage('Install Dependencies'){
     steps{
+      script{
+
+
          sh '''
           if ! yarn --version &> /dev/null
                     then
@@ -45,7 +48,7 @@ echo "Node of version $(node --version) installed"
             yarn
             echo "Node modules created"
                           '''
-
+ }
   }
   }
   stage('Run Tests'){
