@@ -1,77 +1,83 @@
 pipeline {
- agent any
+  agent any
 
-environment{
+  environment {
 
-             PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm:$PATH"
-             EXPECTED_NODE_VERSION="20.11.0"
-}
- stages{
-
-  stage('Install Dependencies'){
-    steps{
-      script{
-
-
-         sh '''
-         yarn_version=$(yarn --version)
-          if [ -z "${yarn_version}" ];
-
-                    then
-                        echo "Yarn not found.$(yarn --version). Installing Yarn..."
-                        curl -o- -L https://yarnpkg.com/install.sh | bash
-                    else
-                        echo "Yarn is already installed"
-                    fi
-
-                    # Verify Yarn version
-                    yarn --version
-
-            echo "Yarn installed"
-node_version=$(node --version)
-
-# Check if the current Node.js version matches the expected version
-
-
-
-if [ "$node_version" != "v$EXPECTED_NODE_VERSION" ]
-then
-
-     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-nvm_version=$(nvm --version)
-
-          if [ -z "${nvm_version}" ];
-                    then
-                                            echo "nvm not found. Installing nvm..."
-                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    fi
-
-                    if ! nvm ls 20.11.0 >/dev/null 2>&1; then
-
-                                nvm install ${EXPECTED_NODE_VERSION}
-                                echo "Node of version ${EXPECTED_NODE_VERSION} installed"
-                                else
-
-            nvm use ${EXPECTED_NODE_VERSION}
-            echo "Node switched to version $(node --version)
-
-            fi
-            fi
-
-            yarn
-            echo "Node modules created"
-                          '''
- }
+    PATH = "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm:$PATH"
+    EXPECTED_NODE_VERSION = "20.11.0"
   }
-  }
-  stage('Run Tests'){
-    steps{
-    sh "yarn test"
-    echo "Test results"
+  stages {
+
+    stage('Install Dependencies') {
+      steps {
+        script {
+
+          sh ''
+          '
+          yarn_version = $(yarn --version)
+          if [-z "${yarn_version}"];
+
+          then
+          echo "Yarn not found.$(yarn --version). Installing Yarn..."
+          curl - o - -L https: //yarnpkg.com/install.sh | bash
+
+            # Verify Yarn version
+          yarn --version
+          echo "Yarn installed"
+          else
+            echo "Yarn is already installed"
+          fi
+
+          node_version = $(node --version)
+
+          # Check
+          if the current Node.js version matches the expected version
+
+          if ["$node_version" != "v$EXPECTED_NODE_VERSION"]
+          then
+
+          export NVM_DIR = "$HOME/.nvm";
+          [-s "$NVM_DIR/nvm.sh"] && . "$NVM_DIR/nvm.sh"
+
+          nvm_version = $(nvm --version)
+
+          if [-z "${nvm_version}"];
+          then
+          echo "nvm not found. Installing nvm..."
+          curl - o - https: //raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+            [-s "$NVM_DIR/nvm.sh"] && .
+          "$NVM_DIR/nvm.sh"
+          fi
+
+          if !nvm ls 20.11 .0 > /dev/null 2 > & 1;
+          then
+
+          nvm install $ {
+            EXPECTED_NODE_VERSION
+          }
+          echo "Node of version ${EXPECTED_NODE_VERSION} installed"
+          else
+
+            nvm use $ {
+              EXPECTED_NODE_VERSION
+            }
+          echo "Node switched to version $(node --version)
+
+          fi
+          fi
+
+          yarn
+          echo "Node modules created"
+          ''
+          '
+        }
+      }
+    }
+    stage('Run Tests') {
+      steps {
+        sh "yarn test"
+        echo "Test results"
+      }
     }
   }
- }
 }
