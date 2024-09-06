@@ -4,6 +4,7 @@ pipeline {
 environment{
 
              PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+             EXPECTED_NODE_VERSION="20.11.0"
 }
  stages{
 
@@ -20,10 +21,20 @@ environment{
 
                     # Verify Yarn version
                     yarn --version
-                    '''
+
             echo "Yarn installed"
+var node_version = `node --version`
+
+            if [ $node_version != `v$EXPECTED_NODE_VERSION` ]
+            then
+            nvm install $EXPECTED_NODE_VERSION
+            nvm use $EXPECTED_NODE_VERSION
+echo "Node of version `node --version` installed`
+            fi
+
             sh 'yarn'
             echo "Node modules created"
+              '''
   }
   }
   stage('Run Tests'){
