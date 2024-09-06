@@ -50,6 +50,21 @@ installDep()
     echo "File created successfully"
     }
   }
+
+  node {
+    properties([
+        parameters([
+            string(defaultValue: 'main', description: 'Branch to build', name: 'BRANCH'),
+            booleanParam(defaultValue: false, description: 'Enable debugging', name: 'DEBUG')
+        ])
+    ])
+
+    stage('Build') {
+        echo "Building branch: ${params.BRANCH}"
+        echo "Debug mode: ${params.DEBUG}"
+    }
+}
+
 }
  }
 
