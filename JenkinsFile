@@ -51,7 +51,7 @@ nvm_version=$(nvm --version)
                     fi
 exp_version=$(nvm ls 20.11.0)
 
-                    if  [ -z "${exp_version}" ] >/dev/null 2>&1;
+                    if  [ -z "${exp_version}" ];
                     then
 
                                 nvm install ${EXPECTED_NODE_VERSION}
