@@ -11,23 +11,38 @@ environment{
   stage('Install Dependencies'){
     steps{
       script{
+installDep()
+ }
+  }
+  }
+  stage('Run Tests'){
+    steps{
+    sh "yarn test"
+    echo "Test results"
+    }
+  }
+ }
+}
 
 
-         sh '''
+def installDep(){
+
+  sh '''
          yarn_version=$(yarn --version)
           if [ -z "${yarn_version}" ];
 
                     then
                         echo "Yarn not found.$(yarn --version). Installing Yarn..."
                         curl -o- -L https://yarnpkg.com/install.sh | bash
-                    else
-                        echo "Yarn is already installed"
-                    fi
 
                     # Verify Yarn version
                     yarn --version
 
             echo "Yarn installed"
+                    else
+                        echo "Yarn is already installed"
+                    fi
+
 node_version=$(node --version)
 
 # Check if the current Node.js version matches the expected version
@@ -55,7 +70,7 @@ nvm_version=$(nvm --version)
                                 else
 
             nvm use ${EXPECTED_NODE_VERSION}
-            echo "Node switched $(node --version) installed"
+            echo "Node switched to version $(node --version)"
 
             fi
             fi
@@ -63,14 +78,4 @@ nvm_version=$(nvm --version)
             yarn
             echo "Node modules created"
                           '''
- }
-  }
-  }
-  stage('Run Tests'){
-    steps{
-    sh "yarn test"
-    echo "Test results"
-    }
-  }
- }
 }
